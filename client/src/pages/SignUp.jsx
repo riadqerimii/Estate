@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
 
 function SignUp() {
   const [formData, setFormData] = useState({});
@@ -37,13 +35,6 @@ function SignUp() {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <Error />;
-  }
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7 ">SignUp</h1>
@@ -82,6 +73,7 @@ function SignUp() {
           <span className="text-blue-700">Sign up</span>
         </Link>
       </div>
+      {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 }
