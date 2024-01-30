@@ -37,6 +37,7 @@ function Profile() {
     }
   }, [file]);
 
+  // image update
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -65,6 +66,7 @@ function Profile() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // update user
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
