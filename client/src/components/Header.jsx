@@ -29,7 +29,7 @@ function Header() {
             Home
           </Link>
           <Link
-            className="text-teal-900 font-semibold hover:text-teal-700 duration-200"
+            className="hidden sm:block text-teal-900 font-semibold hover:text-teal-700 duration-200"
             to="/about"
           >
             About
