@@ -6,6 +6,7 @@ function Search() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState();
+  const [showMore, setShowMore] = useState(false);
   const [listings, setListings] = useState([]);
   const [sideBarData, setSideBarData] = useState({
     searchTerm: "",
@@ -17,8 +18,6 @@ function Search() {
     order: "desc",
   });
 
-  console.log(listings);
-
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
@@ -28,7 +27,6 @@ function Search() {
     const offerFromUrl = urlParams.get("offer");
     const sortFromUrl = urlParams.get("sort");
     const orderFromUrl = urlParams.get("order");
-
     if (
       searchTermFromUrl ||
       typeFromUrl ||
@@ -51,9 +49,15 @@ function Search() {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -103,11 +107,26 @@ function Search() {
     urlParams.set("parking", sideBarData.parking);
     urlParams.set("furnished", sideBarData.furnished);
     urlParams.set("offer", sideBarData.offer);
-    urlParams.set("sort", sideBarData.offer);
+    urlParams.set("sort", sideBarData.sort);
     urlParams.set("order", sideBarData.order);
 
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+  // button
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
 
   return (
@@ -225,6 +244,16 @@ function Search() {
             listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} />
             ))}
+        </div>
+        <div className="items-center flex w-full justify-center my-8">
+          {showMore && (
+            <button
+              className="text-white  self-center  bg-green-600 hover:underline p-2 rounded-md"
+              onClick={onShowMoreClick}
+            >
+              Show more
+            </button>
+          )}
         </div>
       </div>
     </div>
