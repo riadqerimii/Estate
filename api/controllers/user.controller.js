@@ -61,7 +61,7 @@ export const getUserListings = async (req, res, next) => {
   }
 };
 
-export const getUser = async (req, res, next) => {
+export const getUser = async (res, req, next) => {
   try {
     const user = await User.findById(req.params.id);
 
