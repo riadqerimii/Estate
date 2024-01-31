@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function Contact({ listing }) {
+  console.log(listing);
   const [landlord, setLandLord] = useState(null);
   const [message, setMessage] = useState("");
   useEffect(() => {
@@ -24,7 +26,7 @@ function Contact({ listing }) {
   return (
     <div>
       {landlord && (
-        <div className=" flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <p>
             Contact:{" "}
             <span className="font-semibold">
@@ -54,5 +56,12 @@ function Contact({ listing }) {
     </div>
   );
 }
+
+Contact.propTypes = {
+  listing: PropTypes.shape({
+    userRef: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Contact;
