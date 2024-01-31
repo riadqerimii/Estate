@@ -6,7 +6,7 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import listingRouter from "./routes/listing.route.js";
 dotenv.config();
-
+import path from "path";
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -15,6 +15,8 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+const __dirname = path.resolve();
 
 const app = express();
 
@@ -30,6 +32,12 @@ app.listen(3000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 // handling error and path
 app.use((err, req, res, next) => {
