@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
+import PropTypes from "prop-types"; // Import PropTypes
+
 function ListingItem({ listing }) {
   return (
     <div className="bg-white shadow-md hover:shadow-lg transition-shadow gap-4 overflow-hidden rounded-lg w-full sm:w-[330px]">
@@ -51,5 +53,21 @@ function ListingItem({ listing }) {
     </div>
   );
 }
+// propTypes
+ListingItem.propTypes = {
+  listing: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    offer: PropTypes.bool.isRequired,
+    discountPrice: PropTypes.number,
+    regularPrice: PropTypes.number.isRequired,
+    type: PropTypes.oneOf(["rent", "sale"]).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    bathrooms: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default ListingItem;
