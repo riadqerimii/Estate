@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function Contact({ listing }) {
-  console.log(listing);
   const [landlord, setLandLord] = useState(null);
   const [message, setMessage] = useState("");
   useEffect(() => {

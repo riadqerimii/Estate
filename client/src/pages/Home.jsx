@@ -47,7 +47,6 @@ function Home() {
 
     fetchOfferListings();
   }, []);
-  console.log(saleListings, offerListings);
 
   return (
     <div>
