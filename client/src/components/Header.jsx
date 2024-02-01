@@ -51,7 +51,7 @@ function Header() {
         </form>
         <div className="flex gap-3">
           <Link
-            className="text-teal-900 font-semibold hover:text-teal-700 duration-200"
+            className=" hidden sm:block  text-teal-900 font-semibold hover:text-teal-700 duration-200"
             to="/"
           >
             Home
