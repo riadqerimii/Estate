@@ -56,8 +56,8 @@ function Listing() {
         <p className="text-center my-7 text-2xl">Something went wrong!</p>
       )}
       {listing && !loading && !error && (
-        <div>
-          <Swiper navigation>
+        <div className="my-5">
+          <Swiper navigation className="max-w-7xl mx-auto">
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
