@@ -48,8 +48,7 @@ function CreateListing() {
           setUpLoading(false);
         })
         .catch((err) => {
-          console.log(err);
-          setImageUploadError("Image upload failed (2 mb max per image)");
+          setImageUploadError("Image upload failed (2 mb max per image)", err);
           setUpLoading(false);
         });
     } else {
